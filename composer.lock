@@ -1,19 +1,9 @@
 {
-    "hash": "2d05e09e922cdd4e035f009b3a07b7ba",
+    "hash": "0fe260e1de73ebf1a1623dea4af32951",
     "packages": [
-        {
-            "package": "fzaninotto/faker",
-            "version": "dev-master",
-            "source-reference": "a6589c64c33a9a4f16cac52c3f1ada710e1e6448"
-        },
         {
             "package": "phing/phing",
             "version": "2.4.12"
-        },
-        {
-            "package": "pimple/pimple",
-            "version": "dev-master",
-            "source-reference": "v1.0.0"
         },
         {
             "package": "pimple/pimple",
@@ -23,9 +13,9 @@
             "alias-version": "1.0.9999999.9999999-dev"
         },
         {
-            "package": "propel/propel1",
+            "package": "pimple/pimple",
             "version": "dev-master",
-            "source-reference": "7f8f58779902ed0dfa4e3c6e7233caa1b4d93b49"
+            "source-reference": "v1.0.0"
         },
         {
             "package": "propel/propel1",
@@ -35,6 +25,11 @@
             "alias-version": "1.6.9999999.9999999-dev"
         },
         {
+            "package": "propel/propel1",
+            "version": "dev-master",
+            "source-reference": "7f8f58779902ed0dfa4e3c6e7233caa1b4d93b49"
+        },
+        {
             "package": "redpanda/activitystreams",
             "version": "dev-master",
             "source-reference": "3cf01af7b46db40fdf3095a0054bfb88fe5ebd2c"
@@ -42,14 +37,14 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "a0a78aff64ee5e9d218643646fcf819d4a626804"
+            "source-reference": "a0a78aff64ee5e9d218643646fcf819d4a626804",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
         },
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "a0a78aff64ee5e9d218643646fcf819d4a626804",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
+            "source-reference": "a0a78aff64ee5e9d218643646fcf819d4a626804"
         },
         {
             "package": "symfony/browser-kit",
@@ -66,14 +61,14 @@
         {
             "package": "symfony/class-loader",
             "version": "dev-master",
-            "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09"
+            "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/class-loader",
             "version": "dev-master",
-            "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "c57e62c886899f8d88264efad23c857eb198dc09"
         },
         {
             "package": "symfony/css-selector",
@@ -102,14 +97,14 @@
         {
             "package": "symfony/event-dispatcher",
             "version": "dev-master",
-            "source-reference": "eb82542e8ec9506096caf7c528564c740a214f56"
+            "source-reference": "eb82542e8ec9506096caf7c528564c740a214f56",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "dev-master",
-            "source-reference": "eb82542e8ec9506096caf7c528564c740a214f56",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "eb82542e8ec9506096caf7c528564c740a214f56"
         },
         {
             "package": "symfony/finder",
@@ -126,19 +121,12 @@
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae"
         },
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae"
-        },
-        {
-            "package": "symfony/http-kernel",
-            "version": "dev-master",
-            "source-reference": "8160e6e1722cd0073152d01dc1464e2e23369484",
+            "source-reference": "5b1581418381f46679604fd19efc8b518f2390ae",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
         },
@@ -146,6 +134,13 @@
             "package": "symfony/http-kernel",
             "version": "dev-master",
             "source-reference": "8160e6e1722cd0073152d01dc1464e2e23369484"
+        },
+        {
+            "package": "symfony/http-kernel",
+            "version": "dev-master",
+            "source-reference": "8160e6e1722cd0073152d01dc1464e2e23369484",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "symfony/process",
@@ -162,14 +157,14 @@
         {
             "package": "symfony/routing",
             "version": "dev-master",
-            "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274"
         },
         {
             "package": "symfony/routing",
             "version": "dev-master",
-            "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274"
+            "source-reference": "aec133671d79d530d09aa0b5ca4cea9e4ee4b274",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
         },
         {
             "package": "twig/twig",
@@ -191,7 +186,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "redpanda/activitystreams": 20,
-        "fzaninotto/faker": 20,
         "silex/silex": 20,
         "twig/twig": 20
     }
