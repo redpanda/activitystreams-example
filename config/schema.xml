@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="activitystreams_blog_example" namespace="Blog\Model" defaultIdMethod="native">
+    <table name="user">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="username" type="varchar" required="true" />
+
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="category">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" required="true" />
+        <column name="user_id" required="true" type="INTEGER"/>
+
+        <foreign-key foreignTable="user" onDelete="CASCADE" skipSql="true">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="post">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" required="true" />
+        <column name="user_id" required="true" type="INTEGER"/>
+        <column name="category_id" required="true" type="INTEGER"/>
+
+        <foreign-key foreignTable="user" onDelete="CASCADE" skipSql="true">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="category" onDelete="CASCADE" skipSql="true">
+            <reference local="category_id" foreign="id"/>
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="action">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="actor_id" type="INTEGER" required="true" />
+        <column name="actor_type" required="true" type="varchar"/>
+        <column name="actor_name" required="true" type="varchar"/>
+        <column name="actor_url" required="true" type="varchar"/>
+        <column name="actor_image" required="true" type="varchar"/>
+
+        <column name="verb" required="true" type="varchar"/>
+
+        <column name="object_id" type="INTEGER" required="false" />
+        <column name="object_type" required="false" type="varchar"/>
+        <column name="object_name" required="false" type="varchar"/>
+        <column name="object_url" required="false" type="varchar"/>
+        <column name="object_image" required="false" type="varchar"/>
+
+        <column name="target_id" type="INTEGER" required="false" />
+        <column name="target_type" required="false" type="varchar"/>
+        <column name="target_name" required="false" type="varchar"/>
+        <column name="target_url" required="false" type="varchar"/>
+        <column name="target_image" required="false" type="varchar"/>
+
+        <column name="published_at" required="true" type="timestamp"/>
+    </table>
+</database>

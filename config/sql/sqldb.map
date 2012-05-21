@@ -1,0 +1,2 @@
+# Sqlfile -> Database map
+Blog.Model.schema.sql=activitystreams_blog_example
