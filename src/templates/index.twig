@@ -1,0 +1,5 @@
+<h2>Public activity</h2>
+
+{% for action in actions %}
+    {{ activitystreams_render(action) }}
+{% endfor %}

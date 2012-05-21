@@ -1,0 +1,13 @@
+<div class="action">
+    {% if action.targetId %}
+        <p>
+            <a href="{{ action.actorUrl }}">{{ action.actorName }}</a> {{ action.verb }} <a href="{{ action.objectUrl }}">{{ action.objectName }}</a> at <a href="{{ action.targetUrl }}">{{ action.targetName }}</a> on {{ action.publishedAt|date("m/d/Y") }}
+        </p>
+    {% elseif action.objectId %}
+            <a href="{{ action.actorUrl }}">{{ action.actorName }}</a> {{ action.verb }} <a href="{{ action.objectUrl }}">{{ action.objectName }}</a> on {{ action.publishedAt|date("m/d/Y") }}
+    {% else %}
+        <p>
+            <a href="{{ action.actorUrl }}">{{ action.actorName }}</a> {{ action.verb }}  on {{ action.publishedAt|date("m/d/Y") }}
+        </p>
+    {% endif %}
+</div>
