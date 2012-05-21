@@ -9,7 +9,7 @@ class PostResolver extends AbstractDataResolver
 {
     public function getName()
     {
-        return $this->getObject()->getName();
+        return $this->getObject()->getTitle();
     }
     
     public function getUrl()

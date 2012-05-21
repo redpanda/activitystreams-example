@@ -37,19 +37,22 @@ abstract class BasePostPeer {
 	const TM_CLASS = 'PostTableMap';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 7;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 6;
+	const NUM_HYDRATE_COLUMNS = 7;
 
 	/** the column name for the ID field */
 	const ID = 'post.ID';
 
-	/** the column name for the NAME field */
-	const NAME = 'post.NAME';
+	/** the column name for the TITLE field */
+	const TITLE = 'post.TITLE';
+
+	/** the column name for the BODY field */
+	const BODY = 'post.BODY';
 
 	/** the column name for the USER_ID field */
 	const USER_ID = 'post.USER_ID';
@@ -82,12 +85,12 @@ abstract class BasePostPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'UserId', 'CategoryId', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'userId', 'categoryId', 'createdAt', 'updatedAt', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::USER_ID, self::CATEGORY_ID, self::CREATED_AT, self::UPDATED_AT, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'USER_ID', 'CATEGORY_ID', 'CREATED_AT', 'UPDATED_AT', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'user_id', 'category_id', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'Body', 'UserId', 'CategoryId', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'title', 'body', 'userId', 'categoryId', 'createdAt', 'updatedAt', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::TITLE, self::BODY, self::USER_ID, self::CATEGORY_ID, self::CREATED_AT, self::UPDATED_AT, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'TITLE', 'BODY', 'USER_ID', 'CATEGORY_ID', 'CREATED_AT', 'UPDATED_AT', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'body', 'user_id', 'category_id', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	/**
@@ -97,12 +100,12 @@ abstract class BasePostPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'UserId' => 2, 'CategoryId' => 3, 'CreatedAt' => 4, 'UpdatedAt' => 5, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'userId' => 2, 'categoryId' => 3, 'createdAt' => 4, 'updatedAt' => 5, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::USER_ID => 2, self::CATEGORY_ID => 3, self::CREATED_AT => 4, self::UPDATED_AT => 5, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'USER_ID' => 2, 'CATEGORY_ID' => 3, 'CREATED_AT' => 4, 'UPDATED_AT' => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'user_id' => 2, 'category_id' => 3, 'created_at' => 4, 'updated_at' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'Body' => 2, 'UserId' => 3, 'CategoryId' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'title' => 1, 'body' => 2, 'userId' => 3, 'categoryId' => 4, 'createdAt' => 5, 'updatedAt' => 6, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::TITLE => 1, self::BODY => 2, self::USER_ID => 3, self::CATEGORY_ID => 4, self::CREATED_AT => 5, self::UPDATED_AT => 6, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'TITLE' => 1, 'BODY' => 2, 'USER_ID' => 3, 'CATEGORY_ID' => 4, 'CREATED_AT' => 5, 'UPDATED_AT' => 6, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'body' => 2, 'user_id' => 3, 'category_id' => 4, 'created_at' => 5, 'updated_at' => 6, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	/**
@@ -175,14 +178,16 @@ abstract class BasePostPeer {
 	{
 		if (null === $alias) {
 			$criteria->addSelectColumn(PostPeer::ID);
-			$criteria->addSelectColumn(PostPeer::NAME);
+			$criteria->addSelectColumn(PostPeer::TITLE);
+			$criteria->addSelectColumn(PostPeer::BODY);
 			$criteria->addSelectColumn(PostPeer::USER_ID);
 			$criteria->addSelectColumn(PostPeer::CATEGORY_ID);
 			$criteria->addSelectColumn(PostPeer::CREATED_AT);
 			$criteria->addSelectColumn(PostPeer::UPDATED_AT);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
-			$criteria->addSelectColumn($alias . '.NAME');
+			$criteria->addSelectColumn($alias . '.TITLE');
+			$criteria->addSelectColumn($alias . '.BODY');
 			$criteria->addSelectColumn($alias . '.USER_ID');
 			$criteria->addSelectColumn($alias . '.CATEGORY_ID');
 			$criteria->addSelectColumn($alias . '.CREATED_AT');

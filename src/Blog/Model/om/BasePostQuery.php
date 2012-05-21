@@ -22,14 +22,16 @@ use Blog\Model\User;
  * 
  *
  * @method     PostQuery orderById($order = Criteria::ASC) Order by the id column
- * @method     PostQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     PostQuery orderByTitle($order = Criteria::ASC) Order by the title column
+ * @method     PostQuery orderByBody($order = Criteria::ASC) Order by the body column
  * @method     PostQuery orderByUserId($order = Criteria::ASC) Order by the user_id column
  * @method     PostQuery orderByCategoryId($order = Criteria::ASC) Order by the category_id column
  * @method     PostQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     PostQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
  * @method     PostQuery groupById() Group by the id column
- * @method     PostQuery groupByName() Group by the name column
+ * @method     PostQuery groupByTitle() Group by the title column
+ * @method     PostQuery groupByBody() Group by the body column
  * @method     PostQuery groupByUserId() Group by the user_id column
  * @method     PostQuery groupByCategoryId() Group by the category_id column
  * @method     PostQuery groupByCreatedAt() Group by the created_at column
@@ -51,14 +53,16 @@ use Blog\Model\User;
  * @method     Post findOneOrCreate(PropelPDO $con = null) Return the first Post matching the query, or a new Post object populated from the query conditions when no match is found
  *
  * @method     Post findOneById(int $id) Return the first Post filtered by the id column
- * @method     Post findOneByName(string $name) Return the first Post filtered by the name column
+ * @method     Post findOneByTitle(string $title) Return the first Post filtered by the title column
+ * @method     Post findOneByBody(string $body) Return the first Post filtered by the body column
  * @method     Post findOneByUserId(int $user_id) Return the first Post filtered by the user_id column
  * @method     Post findOneByCategoryId(int $category_id) Return the first Post filtered by the category_id column
  * @method     Post findOneByCreatedAt(string $created_at) Return the first Post filtered by the created_at column
  * @method     Post findOneByUpdatedAt(string $updated_at) Return the first Post filtered by the updated_at column
  *
  * @method     array findById(int $id) Return Post objects filtered by the id column
- * @method     array findByName(string $name) Return Post objects filtered by the name column
+ * @method     array findByTitle(string $title) Return Post objects filtered by the title column
+ * @method     array findByBody(string $body) Return Post objects filtered by the body column
  * @method     array findByUserId(int $user_id) Return Post objects filtered by the user_id column
  * @method     array findByCategoryId(int $category_id) Return Post objects filtered by the category_id column
  * @method     array findByCreatedAt(string $created_at) Return Post objects filtered by the created_at column
@@ -151,7 +155,7 @@ abstract class BasePostQuery extends ModelCriteria
 	 */
 	protected function findPkSimple($key, $con)
 	{
-		$sql = 'SELECT `ID`, `NAME`, `USER_ID`, `CATEGORY_ID`, `CREATED_AT`, `UPDATED_AT` FROM `post` WHERE `ID` = :p0';
+		$sql = 'SELECT `ID`, `TITLE`, `BODY`, `USER_ID`, `CATEGORY_ID`, `CREATED_AT`, `UPDATED_AT` FROM `post` WHERE `ID` = :p0';
 		try {
 			$stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -263,31 +267,59 @@ abstract class BasePostQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query on the name column
+	 * Filter the query on the title column
 	 *
 	 * Example usage:
 	 * <code>
-	 * $query->filterByName('fooValue');   // WHERE name = 'fooValue'
-	 * $query->filterByName('%fooValue%'); // WHERE name LIKE '%fooValue%'
+	 * $query->filterByTitle('fooValue');   // WHERE title = 'fooValue'
+	 * $query->filterByTitle('%fooValue%'); // WHERE title LIKE '%fooValue%'
 	 * </code>
 	 *
-	 * @param     string $name The value to use as filter.
+	 * @param     string $title The value to use as filter.
 	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    PostQuery The current query, for fluid interface
 	 */
-	public function filterByName($name = null, $comparison = null)
+	public function filterByTitle($title = null, $comparison = null)
 	{
 		if (null === $comparison) {
-			if (is_array($name)) {
+			if (is_array($title)) {
 				$comparison = Criteria::IN;
-			} elseif (preg_match('/[\%\*]/', $name)) {
-				$name = str_replace('*', '%', $name);
+			} elseif (preg_match('/[\%\*]/', $title)) {
+				$title = str_replace('*', '%', $title);
 				$comparison = Criteria::LIKE;
 			}
 		}
-		return $this->addUsingAlias(PostPeer::NAME, $name, $comparison);
+		return $this->addUsingAlias(PostPeer::TITLE, $title, $comparison);
+	}
+
+	/**
+	 * Filter the query on the body column
+	 *
+	 * Example usage:
+	 * <code>
+	 * $query->filterByBody('fooValue');   // WHERE body = 'fooValue'
+	 * $query->filterByBody('%fooValue%'); // WHERE body LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $body The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    PostQuery The current query, for fluid interface
+	 */
+	public function filterByBody($body = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($body)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $body)) {
+				$body = str_replace('*', '%', $body);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(PostPeer::BODY, $body, $comparison);
 	}
 
 	/**

@@ -20,7 +20,8 @@
 
     <table name="post">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-        <column name="name" type="varchar" required="true" />
+        <column name="title" type="varchar" required="true" />
+        <column name="body" type="varchar" required="true" />
         <column name="user_id" required="true" type="INTEGER"/>
         <column name="category_id" required="true" type="INTEGER"/>
 

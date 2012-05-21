@@ -14,7 +14,7 @@ class UserResolver extends AbstractDataResolver
     
     public function getUrl()
     {
-        return '/post/'.$this->getObject()->getId();
+        return '/user/'.$this->getObject()->getId();
     }
     
     public function getImage()

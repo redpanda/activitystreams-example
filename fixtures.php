@@ -5,8 +5,6 @@ require __DIR__.'/vendor/autoload.php';
 use ActivityStreams\ActionInterface;
 use ActivityStreams\DataResolver\DataResolverProvider;
 use Blog\ActivityStreams\ActionManager;
-use Blog\ActivityStreams\Renderer\SimpleRenderer;
-use Blog\ActivityStreams\Renderer\JsonRenderer;
 use Blog\ActivityStreams\DataResolver\UserResolver;
 use Blog\ActivityStreams\DataResolver\PostResolver;
 use Blog\ActivityStreams\DataResolver\CategoryResolver;
@@ -44,9 +42,9 @@ foreach (array('john', 'tobi', 'adam') as $id => $username) {
     writeln($user);
 }
 
-for ($i=1; $i<=10; $i++) {
+foreach (array('Web', 'Life', 'Open Source', 'PHP') as $value) {
     $category = new Category();
-    $category->setName('Category '.$i);
+    $category->setName($value);
 
     $user = UserQuery::create()->findPk(rand(1,3));
     $category->setUser($user);
@@ -55,14 +53,15 @@ for ($i=1; $i<=10; $i++) {
     $category->save();
 
     // create action
-    $actionManager->createAction($category->getUser(), 'create', $category);
+    $actionManager->createAction($category->getUser(), Category::CREATE_CATEGORY, $category);
 
     writeln($category);
 }
 
-for ($i=1; $i<=100; $i++) {
+for ($i=0; $i<= 20; $i++) {
     $post = new Post();
-    $post->setName('Post '.$i);
+    $post->setTitle('Post title '. $i);
+    $post->setBody('Post body '. $i);
     
     $user = UserQuery::create()->findPk(rand(1,3));
     $post->setUser($user);
@@ -74,6 +73,6 @@ for ($i=1; $i<=100; $i++) {
     $post->save();
 
     // create action
-    $actionManager->createAction($post->getUser(), 'publish', $post, $post->getCategory());
+    $actionManager->createAction($post->getUser(), Post::CREATE_POST, $post, $post->getCategory());
     writeln($post);
 }

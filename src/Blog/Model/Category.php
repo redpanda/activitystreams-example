@@ -18,6 +18,8 @@ use Blog\Model\om\BaseCategory;
  */
 class Category extends BaseCategory implements StreamableInterface
 {
+    const CREATE_CATEGORY = 'created category';
+
     public function getStreamIdentifier()
     {
         return $this->getId();

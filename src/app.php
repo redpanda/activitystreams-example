@@ -3,6 +3,9 @@ require __DIR__.'/../vendor/autoload.php';
 
 use Blog\ActivityStreams\Renderer\JsonRenderer;
 use Blog\Model\ActionQuery;
+use Blog\Model\CategoryQuery;
+use Blog\Model\PostQuery;
+use Blog\Model\UserQuery;
 use Blog\Twig\Extension\ActivityStreamsExtension;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
@@ -10,7 +13,6 @@ use Silex\Provider\TwigServiceProvider;
 Propel::init(__DIR__.'/../config/conf/Blog-conf.php');
 
 $app = new Application();
-
 $app['debug'] = true;
 
 $app->register(new TwigServiceProvider(), array(
@@ -37,6 +39,25 @@ $app->get('/activities.json', function () use ($app) {
 
     return json_encode($res);
 });
+
+$app->get('/user/{id}', function ($id) use ($app) {
+    $user = UserQuery::create()->findPk($id);
+
+    return $app['twig']->render('user_show.twig', array('user' => $user));
+});
+
+$app->get('/category/{id}', function ($id) use ($app) {
+    $category = CategoryQuery::create()->findPk($id);
+
+    return $app['twig']->render('category_show.twig', array('category' => $category));
+});
+
+$app->get('/post/{id}', function ($id) use ($app) {
+    $post = PostQuery::create()->findPk($id);
+
+    return $app['twig']->render('post_show.twig', array('post' => $post));
+});
+
 
 $app->run();
 

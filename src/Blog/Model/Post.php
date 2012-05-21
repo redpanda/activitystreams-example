@@ -18,6 +18,8 @@ use Blog\Model\om\BasePost;
  */
 class Post extends BasePost implements StreamableInterface
 {
+    const CREATE_POST = 'created post';
+
     public function getStreamIdentifier()
     {
         return $this->getId();

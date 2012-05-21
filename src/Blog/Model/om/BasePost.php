@@ -59,10 +59,16 @@ abstract class BasePost extends BaseObject
 	protected $id;
 
 	/**
-	 * The value for the name field.
+	 * The value for the title field.
 	 * @var        string
 	 */
-	protected $name;
+	protected $title;
+
+	/**
+	 * The value for the body field.
+	 * @var        string
+	 */
+	protected $body;
 
 	/**
 	 * The value for the user_id field.
@@ -123,13 +129,23 @@ abstract class BasePost extends BaseObject
 	}
 
 	/**
-	 * Get the [name] column value.
+	 * Get the [title] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getName()
+	public function getTitle()
 	{
-		return $this->name;
+		return $this->title;
+	}
+
+	/**
+	 * Get the [body] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getBody()
+	{
+		return $this->body;
 	}
 
 	/**
@@ -249,24 +265,44 @@ abstract class BasePost extends BaseObject
 	} // setId()
 
 	/**
-	 * Set the value of [name] column.
+	 * Set the value of [title] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     Post The current object (for fluent API support)
 	 */
-	public function setName($v)
+	public function setTitle($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->name !== $v) {
-			$this->name = $v;
-			$this->modifiedColumns[] = PostPeer::NAME;
+		if ($this->title !== $v) {
+			$this->title = $v;
+			$this->modifiedColumns[] = PostPeer::TITLE;
 		}
 
 		return $this;
-	} // setName()
+	} // setTitle()
+
+	/**
+	 * Set the value of [body] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     Post The current object (for fluent API support)
+	 */
+	public function setBody($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->body !== $v) {
+			$this->body = $v;
+			$this->modifiedColumns[] = PostPeer::BODY;
+		}
+
+		return $this;
+	} // setBody()
 
 	/**
 	 * Set the value of [user_id] column.
@@ -393,11 +429,12 @@ abstract class BasePost extends BaseObject
 		try {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-			$this->user_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-			$this->category_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
-			$this->created_at = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-			$this->updated_at = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->title = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->body = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->user_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+			$this->category_id = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+			$this->created_at = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->updated_at = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -406,7 +443,7 @@ abstract class BasePost extends BaseObject
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 6; // 6 = PostPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 7; // 7 = PostPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Post object", $e);
@@ -655,8 +692,11 @@ abstract class BasePost extends BaseObject
 		if ($this->isColumnModified(PostPeer::ID)) {
 			$modifiedColumns[':p' . $index++]  = '`ID`';
 		}
-		if ($this->isColumnModified(PostPeer::NAME)) {
-			$modifiedColumns[':p' . $index++]  = '`NAME`';
+		if ($this->isColumnModified(PostPeer::TITLE)) {
+			$modifiedColumns[':p' . $index++]  = '`TITLE`';
+		}
+		if ($this->isColumnModified(PostPeer::BODY)) {
+			$modifiedColumns[':p' . $index++]  = '`BODY`';
 		}
 		if ($this->isColumnModified(PostPeer::USER_ID)) {
 			$modifiedColumns[':p' . $index++]  = '`USER_ID`';
@@ -684,8 +724,11 @@ abstract class BasePost extends BaseObject
 					case '`ID`':
 						$stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
 						break;
-					case '`NAME`':
-						$stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
+					case '`TITLE`':
+						$stmt->bindValue($identifier, $this->title, PDO::PARAM_STR);
+						break;
+					case '`BODY`':
+						$stmt->bindValue($identifier, $this->body, PDO::PARAM_STR);
 						break;
 					case '`USER_ID`':
 						$stmt->bindValue($identifier, $this->user_id, PDO::PARAM_INT);
@@ -852,18 +895,21 @@ abstract class BasePost extends BaseObject
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getName();
+				return $this->getTitle();
 				break;
 			case 2:
-				return $this->getUserId();
+				return $this->getBody();
 				break;
 			case 3:
-				return $this->getCategoryId();
+				return $this->getUserId();
 				break;
 			case 4:
-				return $this->getCreatedAt();
+				return $this->getCategoryId();
 				break;
 			case 5:
+				return $this->getCreatedAt();
+				break;
+			case 6:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -896,11 +942,12 @@ abstract class BasePost extends BaseObject
 		$keys = PostPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getName(),
-			$keys[2] => $this->getUserId(),
-			$keys[3] => $this->getCategoryId(),
-			$keys[4] => $this->getCreatedAt(),
-			$keys[5] => $this->getUpdatedAt(),
+			$keys[1] => $this->getTitle(),
+			$keys[2] => $this->getBody(),
+			$keys[3] => $this->getUserId(),
+			$keys[4] => $this->getCategoryId(),
+			$keys[5] => $this->getCreatedAt(),
+			$keys[6] => $this->getUpdatedAt(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aUser) {
@@ -945,18 +992,21 @@ abstract class BasePost extends BaseObject
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setName($value);
+				$this->setTitle($value);
 				break;
 			case 2:
-				$this->setUserId($value);
+				$this->setBody($value);
 				break;
 			case 3:
-				$this->setCategoryId($value);
+				$this->setUserId($value);
 				break;
 			case 4:
-				$this->setCreatedAt($value);
+				$this->setCategoryId($value);
 				break;
 			case 5:
+				$this->setCreatedAt($value);
+				break;
+			case 6:
 				$this->setUpdatedAt($value);
 				break;
 		} // switch()
@@ -984,11 +1034,12 @@ abstract class BasePost extends BaseObject
 		$keys = PostPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setUserId($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setCategoryId($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setCreatedAt($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setUpdatedAt($arr[$keys[5]]);
+		if (array_key_exists($keys[1], $arr)) $this->setTitle($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setBody($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setUserId($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setCategoryId($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
 	}
 
 	/**
@@ -1001,7 +1052,8 @@ abstract class BasePost extends BaseObject
 		$criteria = new Criteria(PostPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(PostPeer::ID)) $criteria->add(PostPeer::ID, $this->id);
-		if ($this->isColumnModified(PostPeer::NAME)) $criteria->add(PostPeer::NAME, $this->name);
+		if ($this->isColumnModified(PostPeer::TITLE)) $criteria->add(PostPeer::TITLE, $this->title);
+		if ($this->isColumnModified(PostPeer::BODY)) $criteria->add(PostPeer::BODY, $this->body);
 		if ($this->isColumnModified(PostPeer::USER_ID)) $criteria->add(PostPeer::USER_ID, $this->user_id);
 		if ($this->isColumnModified(PostPeer::CATEGORY_ID)) $criteria->add(PostPeer::CATEGORY_ID, $this->category_id);
 		if ($this->isColumnModified(PostPeer::CREATED_AT)) $criteria->add(PostPeer::CREATED_AT, $this->created_at);
@@ -1068,7 +1120,8 @@ abstract class BasePost extends BaseObject
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setName($this->getName());
+		$copyObj->setTitle($this->getTitle());
+		$copyObj->setBody($this->getBody());
 		$copyObj->setUserId($this->getUserId());
 		$copyObj->setCategoryId($this->getCategoryId());
 		$copyObj->setCreatedAt($this->getCreatedAt());
@@ -1233,7 +1286,8 @@ abstract class BasePost extends BaseObject
 	public function clear()
 	{
 		$this->id = null;
-		$this->name = null;
+		$this->title = null;
+		$this->body = null;
 		$this->user_id = null;
 		$this->category_id = null;
 		$this->created_at = null;

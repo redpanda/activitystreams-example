@@ -44,7 +44,8 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
+	`title` VARCHAR(255) NOT NULL,
+	`body` VARCHAR(255) NOT NULL,
 	`user_id` INTEGER NOT NULL,
 	`category_id` INTEGER NOT NULL,
 	`created_at` DATETIME,
