@@ -1,5 +1,9 @@
-<h2>Public activity</h2>
+{% extends "layout.twig" %}
 
-{% for action in actions %}
-    {{ activitystreams_render(action) }}
-{% endfor %}
+{% block content %}
+    <h1>Last activities</h1>
+
+    {% for action in actions %}
+        {{ activitystreams_render(action) }}
+    {% endfor %}
+{% endblock content %}
