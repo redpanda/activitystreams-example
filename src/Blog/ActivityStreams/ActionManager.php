@@ -7,6 +7,7 @@ use ActivityStreams\Action\ActionInterface;
 use ActivityStreams\Action\ActionManagerInterface;
 use ActivityStreams\DataResolver\DataResolverProvider;
 use Blog\Model\Action;
+use Blog\Model\ActionQuery;
 
 class ActionManager implements ActionManagerInterface
 {
@@ -15,6 +16,11 @@ class ActionManager implements ActionManagerInterface
     public function __construct(DataResolverProvider $dataResolverProvider)
     {
         $this->dataResolverProvider = $dataResolverProvider;
+    }
+
+    public function findAll()
+    {
+        return ActionQuery::create()->find();
     }
 
     public function createAction(StreamableInterface $actor, $verb, StreamableInterface $object = null, StreamableInterface $target = null)
