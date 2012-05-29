@@ -17,4 +17,9 @@ class SimpleRenderer implements RendererInterface
             return sprintf("%s %s", $action->getActorName(), $action->getVerb());
         }
     }
+
+    public function getType()
+    {
+        return 'simple';
+    }
 }
