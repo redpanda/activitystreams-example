@@ -6,20 +6,6 @@
             "": "src/"
         }
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "twitter/bootstrap",
-                "version": "v2.0.1",
-                "source": {
-                    "url": "http://github.com/twitter/bootstrap",
-                    "type": "git",
-                    "reference": "v2.0.1"
-                }
-            }
-        }
-    ],
     "require": {
         "redpanda/activitystreams": "dev-master",
         "propel/propel1": "1.6.*",
