@@ -3,14 +3,15 @@
 namespace Blog\Twig\Extension;
 
 use ActivityStreams\Action\ActionInterface;
+use ActivityStreams\Renderer\RendererProviderInterface;
 
 class ActivityStreamsExtension extends \Twig_Extension
 {
-    protected $defaultTemplate;
+    protected $rendererProvider;
 
-    public function __construct($defaultTemplate)
+    public function __construct(RendererProviderInterface $rendererProvider)
     {
-        $this->defaultTemplate = $defaultTemplate;
+        $this->rendererProvider = $rendererProvider;
     }
 
     public function getFunctions()
@@ -20,9 +21,15 @@ class ActivityStreamsExtension extends \Twig_Extension
         );
     }
 
-    public function render(\Twig_Environment $twig, ActionInterface $action, $template = null)
+    public function render(\Twig_Environment $twig, ActionInterface $action, $type, array $options = array())
     {
-        $template = $template ?: $this->defaultTemplate;
+        $type = $type ?: $action->getObjectType();
+
+        if ($this->rendererProvider->has($type)) {
+            $template =  $this->rendererProvider->get($type)->render($action, $options);
+        } else {
+            $template =  $this->rendererProvider->get()->render($action, $options);
+        }
 
         return $twig->render($template, array('action' => $action));
     }
